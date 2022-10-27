@@ -1,16 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
 require 'faker'
 
 Doctor.destroy_all
 Patient.destroy_all
 Appointment.destroy_all
 City.destroy_all
+Specialty.destroy_all
+Caca.destroy_all
 
 10.times do 
 
@@ -25,24 +21,7 @@ start_country = City.first.id
     total = country + start_country
     cool = City.find(total)
 
-    nb = rand(1..6)
-
-    genree = ''
-    if nb == 1
-        genree = "Gynecologic"
-    elsif nb == 2
-        genree = "Generalist"
-    elsif nb == 3
-        genree = "Cardiothoracic"
-    elsif nb == 4
-        genree = "Toxicology"
-    elsif nb == 5
-        genree = "Oncology"
-    else 
-        genree = "Neuroradiology"
-    end
-
-    doc = Doctor.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, specialty: genree, zip_code: Faker::Number.number(digits: 5), city: cool)
+    doc = Doctor.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, zip_code: Faker::Number.number(digits: 5), city: cool)
 
 end
 
@@ -73,4 +52,26 @@ ok2 = Patient.first.id
     test2 = Patient.find(patnb)
 
     ap = Appointment.create!(doctor: test, patient: test2, date: Faker::Date.between(from: '2014-09-23', to: '2014-09-25'), city: cool)
+end
+
+10.times do 
+    coun = Specialty.create!(specialty_name: Faker::Address.city)
+end
+
+ok4 = Specialty.first.id
+
+70.times do 
+
+    doc = rand(0..9)
+    spe = rand(0..9)
+
+    docnb = ok + doc
+    test = Doctor.find(docnb)
+
+    patnb = ok4 + spe
+    test2 = Specialty.find(patnb)
+    puts test
+    puts test2
+
+    ap = Caca.create!(doctor: test, specialty: test2)
 end
